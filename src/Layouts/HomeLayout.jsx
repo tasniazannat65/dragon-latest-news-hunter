@@ -3,10 +3,13 @@ import Header from '../Components/Header';
 import Navbar from '../Components/Navbar';
 import LatestNews from '../Components/LatestNews';
 import LeftAside from '../Components/LeftAside';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigation } from 'react-router';
 import RightAside from '../Components/RightAside';
+import { ToastContainer } from 'react-toastify';
+import Loading from '../Components/Loading';
 
 const HomeLayout = () => {
+    const {state} = useNavigation()
     return (
         <div>
             <header>
@@ -26,13 +29,16 @@ const HomeLayout = () => {
                     <LeftAside/>
                 </aside>
                 <section className='col-span-6'>
-                    <Outlet/>
+                   {state == 'loading' ? <Loading/> : <Outlet/> } 
                 </section>
                 <aside className='col-span-3 sticky top-0 h-fit'>
                     <RightAside/>
                 </aside>
 
             </main>
+
+
+              <ToastContainer/>
             
         </div>
     );
